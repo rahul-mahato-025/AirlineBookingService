@@ -19,6 +19,26 @@ class BookingRepository {
       );
     }
   }
+
+  async update(bookingId, data) {
+    try {
+      const booking = await Booking.findByPk(bookingId);
+
+      if (data.status) {
+        booking.status = data.status;
+      }
+
+      booking.save();
+      return booking;
+    } catch (error) {
+      throw new AppError(
+        "RepositoryError",
+        "Failed to update booking information",
+        "Unable to update a flight booking in repository",
+        StatusCodes.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 }
 
 module.exports = BookingRepository;
