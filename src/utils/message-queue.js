@@ -19,7 +19,11 @@ const createChannel = async () => {
 const publishMessage = async (channel, binding_key, msg) => {
   try {
     await channel.assertQueue(QUEUE_NAME);
-    channel.publish(EXCHANGE_NAME, binding_key, Buffer.from(msg));
+    channel.publish(
+      EXCHANGE_NAME,
+      binding_key,
+      Buffer.from(JSON.stringify(msg))
+    );
   } catch (error) {
     console.log(error);
   }

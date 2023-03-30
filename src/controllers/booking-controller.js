@@ -28,7 +28,8 @@ class BookingController {
 
   async create(req, res) {
     try {
-      const booking = await bookingService.create(req.body);
+      const channel = await createChannel();
+      const booking = await bookingService.create(req.body, channel);
       return res.status(StatusCodes.OK).json({
         data: booking,
         success: true,
